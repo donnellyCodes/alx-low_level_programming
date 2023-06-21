@@ -13,7 +13,7 @@ int main(void)
 	for (inc = 0; inc < 50; inc++)
 	{
 		num3 = num1 + num2;
-		printf("lu", num3);
+		printf("%lu", num3);
 		num1 = num2;
 		num2 = num3;
 		if (inc == 49)
