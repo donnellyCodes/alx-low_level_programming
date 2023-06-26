@@ -13,5 +13,6 @@ void puts_half(char *str);
 void print_array(int *a, int n);
 char *_strcpy(char *dest, char *src);
 int reset_to_98(&n);
+int _atoi(char *s);
 
 #endif
