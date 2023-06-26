@@ -1,7 +1,7 @@
 #include "main.h"
 /**
- * _puts - function that prints a string followed by a new line
- * @str: string
+ * _puts - function that prints a string
+ * @c: the character
  * Return: Always 0
  */
 int _putchar(char c);
