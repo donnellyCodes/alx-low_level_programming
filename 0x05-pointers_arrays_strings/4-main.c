@@ -5,6 +5,7 @@
  *
  * Return: Always 0.
  */
+int _putchar(char c);
 void print_rev(char *s);
 int main(void)
 {
