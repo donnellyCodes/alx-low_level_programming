@@ -10,22 +10,18 @@ char *rot13(char *str)
 
 	int j;
 
-	char rot[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q',
-		'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
-		'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+	char alpha[] =
+		"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	char rot13[] =
+		"nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM";
 
 	for (i = 0; str[i] != '\0'; i++)
 	{
-		for (j = 0;j < 26; j++)
+		for (j = 0; j < 52; j++)
 		{
-			if (str[i] == rot[j])
+			if (str[i] == alpha[j])
 			{
-				str[i] = rot[j + 13];
-				break;
-			}
-			else if (str[i] == rot[j] - 32)
-			{
-				str[i] = rot[j + 13] - 32;
+				str[i] = rot13[j];
 				break;
 			}
 		}
