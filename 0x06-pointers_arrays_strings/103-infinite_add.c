@@ -1,68 +1,78 @@
 #include "main.h"
-#include <string.h>
+
 /**
- * infinite_add - function to add two numbers
- * @n1: first number
- * @n2: second number
- * @r: buffer
- * @size_r: buffer size
- * Return: Always 0
+ * rev_string - reverse array
+ * @n: integer params
+ * Return: 0
  */
+
+void rev_string(char *n)
+{
+	int i = 0;
+	int j = 0;
+	char temp;
+
+	while (*(n + i) != '\0')
+	{
+		i++;
+	}
+	i--;
+
+	for (j = 0; j < i; j++, i--)
+	{
+		temp = *(n + j);
+		*(n + j) = *(n + i);
+		*(n + i) = temp;
+	}
+}
+
+/**
+ * infinite_add - add 2 numbers together
+ * @n1: text representation of 1st number to add
+ * @n2: text representation of 2nd number to add
+ * @r: pointer to buffer
+ * @size_r: buffer size
+ * Return: pointer to calling function
+ */
+
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
-	int len_1 = strlen(n1);
+	int overflow = 0, i = 0, j = 0, digits = 0;
+	int val1 = 0, val2 = 0, temp_tot = 0;
 
-	int len_2 = strlen(n2);
-
-	int carry = 0;
-
-	int sum = 0;
-
-	int i = len_1 - 1, j = len_2 - 1, k = size_r - 1;
-
-	r[k] = '\0'; /*sets NULL terminator for result string*/
-		while (i >= 0 || j >= 0)
-		{
-			if (i >= 0 && j >= 0)
-			{
-				sum = n1[i] - '0' + n2[j] - '0' + carry;
-				i--;
-				j--;
-			}
-			else if (i >= 0)
-			{
-				sum = n1[i] - '0' + carry;
-				i--;
-			}
-			else
-			{
-				sum = n2[j] - '0' + carry;
-				j--;
-			}
-			if (sum > 9)
-			{
-				carry = 1;
-				sum -= 10;
-			}
-			else
-			{
-				carry = 0;
-			}
-			if (k <= 0) /*checks if there is enough space in r*/
-			{
-				return (NULL);
-			}
-			r[k - 1] = sum + '0';
-			k--;
-		}
-		if (carry > 0)
-		{
-			if (k <= 0)
-				return (NULL);
-			r[k - 1] = carry + '0';
-			k--;
-		}
-		if (k < 0)
-			return (NULL);
+	while (*(n1 + i) != '\0')
+		i++;
+	while (*(n2 + j) != '\0')
+		j++;
+	i--;
+	j--;
+	if (j >= size_r || i >= size_r)
+		return (0);
+	while (j >= 0 || i >= 0 || overflow == 1)
+	{
+		if (i < 0)
+			val1 = 0;
+		else
+			val1 = *(n1 + i) - '0';
+		if (j < 0)
+			val2 = 0;
+		else
+			val2 = *(n2 + j) - '0';
+		temp_tot = val1 + val2 + overflow;
+		if (temp_tot >= 10)
+			overflow = 1;
+		else
+			overflow = 0;
+		if (digits >= (size_r - 1))
+			return (0);
+		*(r + digits) = (temp_tot % 10) + '0';
+		digits++;
+		j--;
+		i--;
+	}
+	if (digits == size_r)
+		return (0);
+	*(r + digits) = '\0';
+	rev_string(r);
 	return (r);
 }
