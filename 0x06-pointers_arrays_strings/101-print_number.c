@@ -2,21 +2,28 @@
 /**
  * print_number - prints an integer
  * @n:.input integer parameter
- *
- *
+ * Return: Always 0
  */
+int _putchar(char c);
 void print_number(int n)
 {
-	unsigned int i = n;
-
-	if (n < 0)
+	if (n == -2147483648)
 	{
-		_putchar(45);
-		i = -i;
+		_putchar('-');
+		_putchar('2');
+		print_number(147483648);
 	}
-	if (i / 10)
+	else if (n < 0)
 	{
-		print_number(i / 10);
+		_putchar('-');
+		n = -n;
+		print_number(n);
 	}
-	_putchar(i % 10 + '0');
+	else if (n > 9)
+	{
+		print_number(n / 10);
+		print_number(n % 10);
+	}
+	else
+		_putchar(n + '0');
 }
