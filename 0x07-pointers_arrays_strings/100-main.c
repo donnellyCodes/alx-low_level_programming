@@ -6,6 +6,7 @@
  *
  * Return: Always 0.
  */
+void set_string(char **s, char *to);
 int main(void)
 {
     char *s0 = "Bob Dylan";
