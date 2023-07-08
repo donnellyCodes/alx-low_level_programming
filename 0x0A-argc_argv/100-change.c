@@ -1,19 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 /**
-<<<<<<< HEAD
- * main - Main Entry
+ * main - Entry point
  * @argc: input
  * @argv: input
  * Return: Always 0 (success)
 **/
-=======
- * main - program that prints the minimum number of coins
- * @argc: input
- * @argv: input
- * Return: Always 0
- */
->>>>>>> 51b7c3af04f7592c74355d734b78a4f33d01e451
 int main(int argc, char *argv[])
 {
 	int cents, coins = 0;
