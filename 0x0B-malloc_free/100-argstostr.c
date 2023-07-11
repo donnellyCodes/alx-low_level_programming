@@ -15,6 +15,7 @@ char *argstostr(int ac, char **av)
 	int c;
 
 	c = 0;
+	k = 0;
 	if (ac == 0 || av == NULL)
 		return (NULL);
 	/* To count length of every character*/
@@ -24,21 +25,21 @@ char *argstostr(int ac, char **av)
 		{
 			c++;
 		}
-		c++;
 	}
-	str = (char *) malloc(sizeof(char) * c);
+	c += ac;
+	str = malloc(sizeof(char) * c + 1);
 	if (str == NULL)
 		return (NULL);
-	k = 0;
 	/*To copy arguments into str*/
 	for (i = 0; i < ac; i++)
 	{
 		for (j = 0; av[i][j]; j++)
 		{
-			str[k++] = av[i][j];
+			str[k] = av[i][j];
+			k++;
 		}
-		str[k++] = '\n';
+		if (str[k] == '\0')
+			str[k++] = '\n';
 	}
-	str[k] = '\0';
 	return (str);
 }
