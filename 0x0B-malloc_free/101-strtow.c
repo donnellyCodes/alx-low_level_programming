@@ -1,60 +1,93 @@
-#include "main.h"
 #include <stdlib.h>
-#include <string.h>
 /**
- * strtow - function that splits a string into words
- * @str: argument
- * Return: Always 0
+ * is_whitespace - filtering white space
+ * @c: char c
+ * Return: white space
+ */
+int is_whitespace(char c) {
+	return c == ' ' || c == '\t' || c == '\n';
+}
+/**
+ * strtow - string into words
+ * @str: string pointer
+ * Return: word
  */
 char **strtow(char *str)
 {
-	if (str == NULL || strlen(str) == 0)
-		return (NULL);
-	int i, j, k, len = strlen(str);
+	int i, j, word_count = 0;
+	char ** words = NULL;
+	int word_len = 0, word_index = 0;
 
-	int word_count = 0, word_len = 0;
-
-	char **words;
-
-	for (i = 0; i < len; i++)
+	if (str == NULL || str[0] == '\0')
 	{
-		if (str[i] != ' ')
-			word_len++;
-		else if (i > 0 && str[i - 1] != ' ')
-			word_count++;
+		return (NULL);
 	}
-	if (str[len - 1] != ' ')
-		word_count++;
-	if (word_count == 0)
-		return (NULL);
-	words = (char **) malloc((word_count + 1) * sizeof(char *));
-	if (words == NULL)
-		return (NULL);
-	j = 0, k = 0, word_len = 0;
-	for (i = 0; i < len; i++)
+	for (i = 0; str[i] != '\0'; i++)
 	{
-		if (str[i] != ' ')
-			word_len++;
-		if (word_len == 1)
-			j = i;
-	}
-	else if (i > 0 && str[i - 1] != ' ')
-	{
-		words[k] = (char *) malloc((word_len + 1) * sizeof(char));
-	if (words[k] == NULL)
-	{
-		while (k > 0)
+		if (!is_whitespace(str[i]) && (is_whitespace(str[i + 1]) || str[i + 1] == '\0'))
 		{
-			k--;
-			free(words[k]);
+			word_count++;
 		}
-		free(words);
-		return (NULL);
+		words = malloc(sizeof(char *) * (word_count + 1));
+		if (words == NULL)
+		{
+			return (NULL);
+		}
+		for (i = 0; str[i] != '\0'; i++)
+		{
+			if (!is_whitespace(str[i]))
+			{
+				if (word_len == 0)
+				{
+					j = i;
+				}
+				word_len++;
+			}
+			else
+			{
+				if (word_len > 0)
+				{
+					words[word_index] = malloc(sizeof(char) * (word_len + 1));
+					if (words[word_index] == NULL)
+					{
+						for (j = 0; j < word_index; j++)
+						{
+							free(words[j]);
+						}
+						free(words);
+						return (NULL);
+					}
+					for (j = 0; j < word_len; j++)
+					{
+						words[word_index][j] = str[i - word_len + j];
+					}
+					words[word_index][word_len] = '\0';
+					word_index++;
+					word_len = 0;
+				}
+			}
+		}
+		if (word_len > 0)
+		{
+			words[word_index] = malloc(sizeof(char) * (word_len + 1));
+			if (words[word_index] == NULL)
+			{
+				for (j = 0; j < word_index; j++)
+				{
+					free(words[j]);
+				}
+				free(words);
+				return (NULL);
+			}
+			for (j = 0; j < word_len; j++)
+			{
+				words[word_index][j] = str[i - word_len + j];
+			}
+			words[word_index][word_len] = '\0';
+			word_index++;
+		}
+		words[word_index] = NULL;
+		return (words);
 	}
-	strncpy(words[k], &str[j], word_len);
-	words[k][word_len] = '\0';
-	k++;
-	}
-	words[k] = NULL;
 	return (words);
 }
