@@ -5,11 +5,12 @@
  * @array: pointer to int
  * @size: size of the array
  * @action: pointer to the function
- * Return: Always 0
+ * Return: Always 0 (success)
  */
 void array_iterator(int *array, size_t size, void (*action)(int))
 {
 	size_t i;
+
 	if (array == NULL || action == NULL)
 	{
 		return;
