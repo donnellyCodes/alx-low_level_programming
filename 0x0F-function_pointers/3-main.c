@@ -9,32 +9,25 @@
  */
 int main(int argc, char *argv[])
 {
-	int num1, num2, result;
-
-	int (*func)(int, int);
-
-	char *operator;
+	int i;
 
 	if (argc != 4)
 	{
 		printf("Error\n");
 		return (98);
 	}
-	num1 = atoi(argv[1]);
-	num2 = atoi(argv[3]);
-	operator = argv[2];
-	func = get_op_func(operator);
-	if (func == NULL)
+	if ((argv[2][1] != 0) || ((argv[2][0] != '+') && (argv[2][0] != '-')
+		&& (argv[2][0] != '*') && (argv[2][0] != '/') && (argv[2][0] != '%')))
 	{
 		printf("Error\n");
 		return (99);
 	}
-	if ((*argv[2] == '/' || *argv[2] == '%') && num2 == 0)
+	if ((argv[2][0] == '/' || argv[2][0] == '%') && atoi(argv[3]) == 0)
 	{
 		printf("Error\n");
 		return (100);
 	}
-	result = func(num1, num2);
-	printf("%d\n", result);
+	i = get_op_func(argv[2]) (atoi(argv[1]), atoi(argv[3]));
+	printf("%d\n", i);
 	return (0);
 }
