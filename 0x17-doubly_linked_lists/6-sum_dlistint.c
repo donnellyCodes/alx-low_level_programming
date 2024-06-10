@@ -7,6 +7,10 @@
 int sum_dlistint(dlistint_t *head)
 {
 	int sum = 0;
+	int count = 0;
+
+	if (head == NULL)
+		return (0);
 
 	while (head != NULL)
 	{
@@ -14,6 +18,9 @@ int sum_dlistint(dlistint_t *head)
 		sum += head->n;
 		/*move to the next node*/
 		head = head->next;
+		count++;
 	}
+	if (count == 0)
+		return (0);
 	return (sum);
 }
